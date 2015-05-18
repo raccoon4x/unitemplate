@@ -1,0 +1,5 @@
+/.svn
+/app/lib/tpl/tpl_compiled
+/vendor
+/nbproject
+/composer.lock

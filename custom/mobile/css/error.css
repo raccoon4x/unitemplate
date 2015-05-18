@@ -1,0 +1,9 @@
+.line {background: #1BD57D  url('../img/l.png') repeat-y;}
+#header {
+    color: #FFFFFF;
+    background: #1BD57D  url('../img/l.png') repeat-y;
+}
+#error_back a {color: #727272;}
+#error_text {margin: 50px 0; height: 100%;}
+#error_text p {margin-top: 0;}
+

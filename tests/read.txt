@@ -1,0 +1,7 @@
+Чтобы начать тестирование, в командной строке введите
+
+codecept run functional <название папки шаблона/точки продажи>
+
+Пример для mobile шаблонов
+
+codecept run functional Tests/funtional/mobile/
