@@ -12,13 +12,14 @@
 
  1. Скачать данное приложение
  ```sh
- $ git clone [git-repo-url] unitemplate
+ $ git clone [git-repo-url]
  $ cd unitemplate
  ```
+ где [git-repo-url] - текущий url репозитория
 
  2. Выполнить загрузку модулей
  ```sh
- $ php composer.phar install
+ $ php composer.phar install --no-dev
  ```
  
  3. При необходимости поставить права на запись для папки
