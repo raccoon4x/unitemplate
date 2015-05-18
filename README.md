@@ -57,6 +57,7 @@
 При обращении к статическим файлам, необходимо определить абсолютный путь:
 
 ```tpl
+{% assign var="file" value=$smarty.template %}
 {% php %}
     $file = $this->get_template_vars('file');
     $path = explode("/",dirname($file));
@@ -72,4 +73,29 @@
 ```
 
 где {% $custom %} - абсолютный путь к папке с вашими шаблонами
+
+**Важно!** На страницах шаблона есть переменные которые нужно всегда определять
+
+```tpl
+{% assign var="file" value=$smarty.template %}
+{% php %}
+    $file = $this->get_template_vars('file');
+    $this->assign('template_dir', dirname($file));
+{% /php %} 
+```
+
+Здесь
+ * file - переменная, в которой хранится путь к файлу шаблона, используется для манипуляции с путем к файлу
+ * template_dir - переменная, к которой хранится директория шаблона
+
+**template_dir** используется для подгрузки layout файла
+
+```tpl
+{% assign var="baseFile" value="$template_dir/base.tpl" %}
+{% include file=$baseFile
+    title=$smarty.capture.title|default:''
+    css=$smarty.capture.css|default:''
+    body=$smarty.capture.body|default:''
+%}
+```
 
