@@ -71,3 +71,5 @@
 <script type="text/javascript" src="{% $custom %}/js/jquery-1.8.3.min.js"></script>
 ```
 
+где {% $custom %} - абсолютный путь к папке с вашими шаблонами
+
