@@ -11,20 +11,20 @@
 #### Шаги по установке
 
  1. Скачать данное приложение
-```sh
-$ git clone [git-repo-url] unitemplate
-$ cd unitemplate
-```
+ ```sh
+ $ git clone [git-repo-url] unitemplate
+ $ cd unitemplate
+ ```
 
  2. Выполнить загрузку модулей
-```sh
-$ php composer.phar install
-```
+ ```sh
+ $ php composer.phar install
+ ```
  
  3. При необходимости поставить права на запись для папки
  ```sh
-$ chmod -R 777 app/lib/tpl/tpl_compiled/
-```
+ $ chmod -R 777 app/lib/tpl/tpl_compiled/
+ ```
 
  4. Запустить приложение
  ```sh
