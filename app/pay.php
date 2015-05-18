@@ -62,6 +62,7 @@ class pay {
     }
     
     public function acp_do_redirect($upoint){
+		sleep(10);
         return "Redirect is OK";
     }
     
