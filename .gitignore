@@ -1,4 +1,5 @@
 /.svn
+/app/lib/tpl/tpl_compiled/*.php
 /vendor
 /nbproject
 /composer.lock
