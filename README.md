@@ -11,6 +11,7 @@
 #### Шаги по установке
   * [Linux/mac](#linux-mac)
   * [Windows](#windows)
+  
 ### Linux/mac
  1. Скачать данное приложение
  ```sh
@@ -36,7 +37,7 @@
  5. Открыть приложение в браузере [http://localhost:8008](http://localhost:8008)
 
 ### Windows
-Для платформы windows у Вас должен быть установлен php. Можно воспользоваться автоматическим установщиком XAMPP ([установка xampp](https://www.apachefriends.org/ru/download.html)). После установки, перейдите в командную строку windows (cmd в меню Пуск). Дальнейший пример будет представлен для установленного пакета XAMPP в папку C:\xampp\.
+Для платформы windows у Вас должен быть установлен php. Можно воспользоваться автоматическим установщиком XAMPP ([установка xampp](https://www.apachefriends.org/ru/download.html)). После установки, перейдите в командную строку windows (cmd в меню Пуск). Дальнейший пример будет представлен для установленного пакета XAMPP в папку C:\xampp\ .
  1. Скачать данное приложение
  ```sh
  git clone https://github.com/uniteller/unitemplate
