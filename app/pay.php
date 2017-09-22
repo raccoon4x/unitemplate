@@ -24,11 +24,36 @@ class pay {
         }
         
         $this->tpl->assign('context',$context);
-        $this->tpl->assign('payment_menu','1');
+        
+        $payment_menu = array(
+            "cc" => array(
+                "logotypes" => array(
+                    "0" => array(
+                        "title" => "Банковская карта", 
+                        "img" => "card.png",
+                        "url" => "", 
+                        "cid" => "-1",
+                        "mask" =>"", 
+                        "state" => "1",
+                        "bank_name" => "",
+                        "card_type" => "",
+                        "card_number" => ""
+                    ),
+                ),
+                "title" => "",
+                "fields" => array(),
+                "instructions" => array()
+            )
+        );
+        
+        $this->tpl->assign('payment_menu', $payment_menu);
+
+	$this->tpl->assign('payment_menu_json', json_encode($payment_menu));
+
         $this->tpl->assign( "aYears", $this->getExpYears() );
         $this->tpl->assign( "aMonths", $this->getExpMonths() );
         $this->tpl->assign( "aRegisteredCards", false );
-        
+        $this->tpl->assign('isValidPhone','1');
         
         $this->tpl->assign('contextSerialized','1234567890');
         $this->tpl->assign('isCustomer','0');
@@ -50,6 +75,14 @@ class pay {
         
         return $this->tpl->fetch($upoint . DS . 'pay_cc.tpl', null, null, false);
 
+    }
+
+    public function acp_email1($upoint) {
+        return $this->tpl->fetch($upoint . DS . 'email1.tpl', null, null, false);
+    }
+
+	public function acp_email2($upoint) {
+        return $this->tpl->fetch($upoint . DS . 'email2.tpl', null, null, false);
     }
     
     public function acp_do($upoint){
@@ -122,11 +155,36 @@ class pay {
     public function acp_one($upoint){
         
         $context = $this->getContext();
+	$payment_menu = array(
+            "cc9" => array(
+                "logotypes" => array(
+                    "0" => array(
+                        "title" => "Банковская карта", 
+                        "img" => "card.png",
+                        "url" => "0", 
+                        "cid" => "9",
+                        "mask" =>"VISA 440505******0005", 
+                        "state" => "1","bank_name" => "",
+                        "card_type" => "VISA",
+                        "card_number" => "VISA 440505******0005"
+                    ),
+                ),
+                "title" => "",
+                "fields" => array(),
+                "instructions" => array()
+            )
+        );
+        
         $this->tpl->assign('context',$context);
-        $this->tpl->assign('payment_menu','1');
+        $this->tpl->assign('payment_menu', $payment_menu);
+
+	$this->tpl->assign('payment_menu_json', json_encode($payment_menu));
+	
+	$this->tpl->assign("payment_menu_key", "cc9");
         $this->tpl->assign( "aYears", $this->getExpYears() );
         $this->tpl->assign( "aMonths", $this->getExpMonths() );
         $this->tpl->assign('isValidEmail','1');
+        $this->tpl->assign('isValidPhone','1');
         $this->tpl->assign( "aRegisteredCards", false );
         
         $this->tpl->assign('contextSerialized','1234567890');
@@ -145,13 +203,74 @@ class pay {
         
         $context = $this->getContext();
         $this->tpl->assign('context',$context);
-        $this->tpl->assign('payment_menu','1');
+        
+        $payment_menu = array(
+            "cc9" => array(
+                "logotypes" => array(
+                    "0" => array(
+                        "title" => "Банковская карта", 
+                        "img" => "card.png",
+                        "url" => "0", 
+                        "cid" => "9",
+                        "mask" =>"VISA 440505******0005", 
+                        "state" => "1","bank_name" => "",
+                        "card_type" => "VISA",
+                        "card_number" => "VISA 440505******0005"
+                    ),
+                ),
+                "title" => "",
+                "fields" => array(),
+                "instructions" => array()
+            ),
+            "cc10" => array(
+                "logotypes" => array(
+                    "0" => array(
+                        "title" => "Банковская карта", 
+                        "img" => "card.png",
+                        "url" => "0", 
+                        "cid" => "10",
+                        "mask" =>"MasterCard 550505******0001", 
+                        "state" => "1","bank_name" => "",
+                        "card_type" => "MasterCard",
+                        "card_number" => "MasterCard 550505******0001"
+                    ),
+                ),
+                "title" => "",
+                "fields" => array(),
+                "instructions" => array()
+            ),
+            "cc" => array(
+                "logotypes" => array(
+                    "0" => array(
+                        "title" => "Банковская карта", 
+                        "img" => "card.png",
+                        "url" => "", 
+                        "cid" => "-1",
+                        "mask" =>"", 
+                        "state" => "1",
+                        "bank_name" => "",
+                        "card_type" => "",
+                        "card_number" => ""
+                    ),
+                ),
+                "title" => "",
+                "fields" => array(),
+                "instructions" => array()
+            )
+        );
+        
+        $this->tpl->assign('payment_menu', $payment_menu);
+
+	$this->tpl->assign('payment_menu_json', json_encode($payment_menu));
+
+	$this->tpl->assign("payment_menu_key", "cc9");
         $this->tpl->assign( "aYears", $this->getExpYears() );
         $this->tpl->assign( "aMonths", $this->getExpMonths() );
         $this->tpl->assign('isValidEmail','1');
+        $this->tpl->assign('isValidPhone','1');
         
         $this->tpl->assign('contextSerialized','1234567890');
-        $this->tpl->assign('isCustomer','0');
+        $this->tpl->assign('isCustomer','1');
         
         $this->tpl->assign('aShop',$this->getShop());
         $this->tpl->assign('conf',array('currentUrl' => ''));
@@ -323,14 +442,14 @@ class pay {
             ),
             '10' => array( 
                 'cid' => 10,
-                'mask' => 'VISA 550505******0001',
+                'mask' => 'MasterCard 550505******0001',
                 'state' => 1,
                 'bank_name' => '',
                 'customer_id' => '12345', 
                 'shop_id' => '00000291',
                 'exp_date' => '',
                 'card_number' => '550505******0001',
-                'card_type' => 'VISA',
+                'card_type' => 'MasterCard',
                 'acquirerid' => '',
                 'isowncard' => ''
             ) 
