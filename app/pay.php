@@ -7,14 +7,24 @@ use app\lib\sm\url;
 
 
 class pay {
-    
-    function __construct() {
-        $this->tpl = new tpl();
+
+    /**
+     * @var \app\tpl
+     */
+    private $tpl;
+
+    /**
+     * @var string
+     */
+    private $templateDir;
+
+    public function __construct($template) {
+        $this->templateDir = "/custom/".$template;
+        $this->tpl = new tpl($this->templateDir);
         url::registerInTemplateEngine($this->tpl);
     }
     
     public function acp_index($upoint){
-        
         $context = $this->getContext();
         if (isset($_GET['emptyEmail']) && $_GET['emptyEmail']){
             $context['Email'] = '';
@@ -48,7 +58,7 @@ class pay {
         
         $this->tpl->assign('payment_menu', $payment_menu);
 
-	$this->tpl->assign('payment_menu_json', json_encode($payment_menu));
+	    $this->tpl->assign('payment_menu_json', json_encode($payment_menu));
 
         $this->tpl->assign( "aYears", $this->getExpYears() );
         $this->tpl->assign( "aMonths", $this->getExpMonths() );
@@ -73,7 +83,7 @@ class pay {
             ));
         }
         
-        return $this->tpl->fetch($upoint . DS . 'pay_cc.tpl', null, null, false);
+        return $this->tpl->fetch( 'pay_cc.tpl', null, null, false);
 
     }
 
@@ -90,7 +100,7 @@ class pay {
         $this->tpl->assign('contextSerialized','1234567890');
         $this->tpl->assign('url','');
         
-        return $this->tpl->fetch($upoint . DS . 'pay_do.tpl', null, null, false);
+        return $this->tpl->fetch('pay_do.tpl', null, null, false);
 
     }
     
@@ -115,7 +125,7 @@ class pay {
                 $this->tpl->assign('message',"true");
         }
         
-        return $this->tpl->fetch($upoint . DS . 'pay_error.tpl', null, null, false);
+        return $this->tpl->fetch('pay_error.tpl', null, null, false);
 
     }
     
@@ -126,7 +136,7 @@ class pay {
         $this->tpl->assign('aShop',$this->getShop());
         $this->tpl->assign('aOrder',$this->getOrder());
         $this->tpl->assign('conf',array('currentUrl' => ''));
-        return $this->tpl->fetch($upoint . DS . 'check_cc.tpl', null, null, false);
+        return $this->tpl->fetch('check_cc.tpl', null, null, false);
 
     }
     
@@ -138,7 +148,7 @@ class pay {
         
         $this->tpl->assign('message',"true");
         
-        return $this->tpl->fetch($upoint . DS . 'check_error.tpl', null, null, false);
+        return $this->tpl->fetch('check_error.tpl', null, null, false);
 
     }
     
@@ -148,7 +158,7 @@ class pay {
         $this->tpl->assign('contextSerialized','1234567890');
         $this->tpl->assign('newRouteData',$this->getNewRouteData());
         $this->tpl->assign('originalAmount','51.53');
-        return $this->tpl->fetch($upoint . DS . 'pay_fee.tpl', null, null, false);
+        return $this->tpl->fetch('pay_fee.tpl', null, null, false);
 
     }
     
@@ -196,7 +206,7 @@ class pay {
         $this->tpl->assign('card_error','');
         
         
-        return $this->tpl->fetch($upoint . DS . 'pay_one_cc.tpl', null, null, false);
+        return $this->tpl->fetch('pay_one_cc.tpl', null, null, false);
     }
     
     public function acp_simple($upoint){
@@ -276,13 +286,13 @@ class pay {
         $this->tpl->assign('conf',array('currentUrl' => ''));
         $this->tpl->assign('aRegisteredCards',$this->getRegisteredCards());
 
-        return $this->tpl->fetch($upoint . DS . 'pay_simple_cc.tpl', null, null, false);
+        return $this->tpl->fetch('pay_simple_cc.tpl', null, null, false);
 
     }
     
     public function acp_info($upoint){
 
-        return $this->tpl->fetch($upoint . DS . 'info_cc.tpl', null, null, false);
+        return $this->tpl->fetch('info_cc.tpl', null, null, false);
 
     }
     
@@ -295,7 +305,7 @@ class pay {
         $this->tpl->assign('spasibo_pay_limit',10);
         $this->tpl->assign('spasibo_balance',99);
         
-        return $this->tpl->fetch($upoint . DS . 'pay_spasibo.tpl', null, null, false);
+        return $this->tpl->fetch('pay_spasibo.tpl', null, null, false);
 
     }
     
@@ -314,7 +324,7 @@ class pay {
         ));
        
         
-        return $this->tpl->fetch($upoint . DS . 'pay_spasibo_err.tpl', null, null, false);
+        return $this->tpl->fetch('pay_spasibo_err.tpl', null, null, false);
 
     }
     
