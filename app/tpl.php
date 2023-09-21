@@ -53,12 +53,11 @@ class tpl extends Smarty {
      * @return string             - результат исполнения шаблона
      */
     public function fetch( $name, $cache_id = null, $compile_id = null, $display = false ) {
-        $upoint = explode(DS, $name);
-        $templateID = $upoint[0];
-        $this->assign('template_dir', $this->template_dir.DS.$templateID);
+//        $upoint = explode(DS, $name);
+//        $templateID = $upoint[0];
+        $this->assign('template_dir', ".");
         $this->assign('custom', $this->template_dir);
         $this->assign('defaultSupportPhone', '8 800 707-67-19');
-//        echo $name;
         return parent::fetch( $name, $cache_id, $compile_id, $display );
     }
 
@@ -68,7 +67,7 @@ class tpl extends Smarty {
     }
 
     public function smartyIcb($params, $content, $smarty, &$repeat)
-    {   
+    {
        return $content;
     }
    

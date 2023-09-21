@@ -55,7 +55,9 @@ class pay {
                 "instructions" => array()
             )
         );
-        
+
+        $this->tpl->assign('ppi', []);
+
         $this->tpl->assign('payment_menu', $payment_menu);
 
 	    $this->tpl->assign('payment_menu_json', json_encode($payment_menu));
@@ -152,7 +154,8 @@ class pay {
     }
     
     public function acp_fee($upoint){
-
+        $this->tpl->assign('context',$this->getContext());
+        $this->tpl->assign('aShop',$this->getShop());
         $this->tpl->assign('conf',array('currentUrl' => ''));
         $this->tpl->assign('contextSerialized','1234567890');
         $this->tpl->assign('newRouteData',$this->getNewRouteData());
@@ -417,7 +420,8 @@ class pay {
             'active_tmpl' => 'mobile',
             'show_email' => '0',
             'show_phone' => '0',
-            'payTypes' => array('0' => '0'),
+            'payTypes' => ['card' => ['0'=>'0']],
+            'super_orig_amount' => '51.53'
         );
         return $context;
     }
@@ -515,7 +519,7 @@ class pay {
         return array (
             'orderid' => 'uni-тест +_;№%:?2015-05-13-68929',
             'continuepay' => 1,     
-            'newamount' => 401.25,     
+            'newamount' => 70.64,
             'comissionamount' => 19.11,     
             'message' => 'Комиссия составляет 5% от суммы' 
         );
