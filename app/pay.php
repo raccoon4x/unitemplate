@@ -110,7 +110,6 @@ class pay {
     }
     
     public function acp_error($upoint){
-        
         $this->tpl->assign('context',$this->getContext());
         $this->tpl->assign('contextSerialized','1234567890');
         $this->tpl->assign('conf',array('currentUrl' => ''));
@@ -130,7 +129,7 @@ class pay {
     }
     
     public function acp_check($upoint){
-        
+        $this->tpl->assign('CardholderName', 'NO NAME');
         $this->tpl->assign('context',$this->getContext());
         $this->tpl->assign('contextSerialized','1234567890');
         $this->tpl->assign('aShop',$this->getShop());

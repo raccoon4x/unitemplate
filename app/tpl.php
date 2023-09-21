@@ -20,7 +20,6 @@ class tpl extends Smarty {
         $smarty_dir = BASE_PATH.DS . 'vendor'.DS.'smarty'.DS.'smarty';
 
         $this->template_dir = $dir ? $dir : BASE_PATH.DS.'custom';
-//        $this->template_dir = '/custom/epguCore/';
 
         $this->compile_dir  = BASE_PATH.DS.'app'.DS.'lib'.DS.'tpl'.DS.'tpl_compiled';
         $this->config_dir   = BASE_PATH.DS.'app'.DS.'lib'.DS.'tpl';
@@ -58,6 +57,7 @@ class tpl extends Smarty {
         $templateID = $upoint[0];
         $this->assign('template_dir', $this->template_dir.DS.$templateID);
         $this->assign('custom', $this->template_dir);
+        $this->assign('defaultSupportPhone', '8 800 707-67-19');
 //        echo $name;
         return parent::fetch( $name, $cache_id, $compile_id, $display );
     }
