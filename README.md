@@ -5,7 +5,7 @@
 ### Установка
 
 Необходимые требования:
-* php >= 5.4
+* php >= 5.4, <= 5.6
 * git ([установка](http://git-scm.com/book/ru/v2/%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5-%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-Git))
 
 #### Шаги по установке
@@ -65,7 +65,7 @@
                 содержатся в одном файле pay_cc.tpl):
        - pay_cc.tpl -стандартный вариант
        - pay_cc.tpl (Pay using Customer_IDP) - вариант с чекбоксом для запоминания информации о карте
-       - pay_cc.tpl (Pay without Email)  - вариант с полем для ввода Email плательщика
+       - pay_cc.tpl (Pay without Email) - вариант с полем для ввода Email плательщика
        - pay_cc.tpl (Pay with error) - вариант с выводом ошибки в случае неправильно веденных данных
  * pay_one_cc.tpl - страница оплаты с ипользованием сохраненной карты
  * pay_simple_cc.tpl -упрощенная страница оплаты (с ипользованием нескольких сохраненных карт)
@@ -84,49 +84,3 @@
  * js
 
 Файлы шаблонов *.tpl должны лежать в корне созданной вами папки
-
-При обращении к статическим файлам, необходимо определить абсолютный путь:
-
-```tpl
-{% assign var="file" value=$smarty.template %}
-{% php %}
-    $file = $this->get_template_vars('file');
-    $path = explode("/",dirname($file));
-    $this->assign('custom', '/custom/'.end($path)); // определение абсолютного пути
-{% /php %} 
-```
-
-после чего его можно использовать
-
-```tpl
-<link rel="stylesheet" href="{% $custom %}/css/style.css">
-<script type="text/javascript" src="{% $custom %}/js/jquery-1.8.3.min.js"></script>
-```
-
-где {% $custom %} - абсолютный путь к папке с вашими шаблонами
-
-**Важно!** На страницах шаблона есть переменные которые нужно всегда определять
-
-```tpl
-{% assign var="file" value=$smarty.template %}
-{% php %}
-    $file = $this->get_template_vars('file');
-    $this->assign('template_dir', dirname($file));
-{% /php %} 
-```
-
-Здесь
- * file - переменная, в которой хранится путь к файлу шаблона, используется для манипуляции с путем к файлу
- * template_dir - переменная, к которой хранится директория шаблона
-
-**template_dir** используется для подгрузки layout файла
-
-```tpl
-{% assign var="baseFile" value="$template_dir/base.tpl" %}
-{% include file=$baseFile
-    title=$smarty.capture.title|default:''
-    css=$smarty.capture.css|default:''
-    body=$smarty.capture.body|default:''
-%}
-```
-

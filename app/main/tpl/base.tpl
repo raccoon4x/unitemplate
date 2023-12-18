@@ -3,7 +3,7 @@
     <title>{% $title|default:'' %}</title>
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <script type="text/javascript" src="/assets/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery-3.7.0.min.js"></script>
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 
     <!-- Optional theme -->

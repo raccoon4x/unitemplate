@@ -13,10 +13,10 @@
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <a target="_blank" href="http://uniteller.ru" title="Uniteller" style="float:left;padding:15px 50px 0 0"><img src="/assets/img/logo.png"/></a>
+        <a target="_blank" href="https://uniteller.ru" title="Uniteller" style="float:left;padding:15px 50px 0 0"><img src="/assets/img/logo.png"/></a>
         
         <h2>Шаблоны для точек продажи</h2>
-        <label for="upoint">Выберите точку продажи</label> &nbsp;&nbsp;&nbsp;
+        <label for="upoint">Выберите шаблон: </label> &nbsp;&nbsp;&nbsp;
         <select name="upoint" onchange="javascript:document.getElementById('currentUpoint').innerHTML = document.getElementById('templates_'+this.value).innerHTML;" >
             <option value=""></option>
             {%foreach name=list item=item key=upoint from=$list%}
@@ -35,7 +35,7 @@
     <div id="templates_{% $upoint %}">
         <div class="page-header">
             <a style="float:right" href="/main/archive/{% $upoint %}">скачать</a>
-            <h2>Шаблоны для точки {% $upoint %}</h2>
+            <h2>Страницы для шаблона {% $upoint %}</h2>
         </div>
         
         <ul>
