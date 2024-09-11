@@ -2,7 +2,7 @@
 
 namespace app;
 
-use \Smarty;
+use \Smarty\Smarty;
 
 class tpl extends Smarty {
     
@@ -16,7 +16,7 @@ class tpl extends Smarty {
      * @noinspection PhpMissingParentConstructorInspection
      */
     public function __construct($dir = '') {
-        parent::Smarty();
+        parent::__construct($dir);
         $smarty_dir = BASE_PATH.DS . 'vendor'.DS.'smarty'.DS.'smarty';
 
         $this->template_dir = $dir ? $dir : BASE_PATH.DS.'custom';
@@ -28,15 +28,15 @@ class tpl extends Smarty {
             $smarty_dir .DS.'libs'.DS.'plugins',
             BASE_PATH.DS.'app'.DS.'lib'.DS.'tpl'.DS.'plugins'
         );
-        $this->register_block("ic",array('app\tpl','smartyIcb'));
+        $this->registerPlugin("block","ic",array($this,'smartyIcb'));
 
-        $this->left_delimiter = '{%';
-        $this->right_delimiter = '%}';
+        $this->setLeftDelimiter("{%");
+        $this->setRightDelimiter( "%}");
         
         $this->debugging = true;
         $this->error_reporting = E_ALL;
-        
-        $this->force_compile = true;
+        $this->auto_literal = false;  // this is the remedy :)
+        $this->setForceCompile(true);
         //$this->compile_check = true;
         
     }
@@ -52,15 +52,23 @@ class tpl extends Smarty {
      *
      * @return string             - результат исполнения шаблона
      */
-    public function fetch( $name, $cache_id = null, $compile_id = null, $display = false ) {
+    public function fetch( $template = null, $cache_id = null, $compile_id = null ) {
         $this->assign('template_dir', "."); // $this->template_dir;
-        $this->assign('template_dir', $this->template_dir);
-        $this->assign('custom', $this->template_dir);
+        
+        if(strpos($this->template_dir,"..")) {
+            $arr = explode("..",$this->template_dir);
+            $this->assign('template_dir', $arr[1]);
+            $this->assign('custom', $arr[1]);
+        } else {
+            $this->assign('template_dir', $this->template_dir);
+            $this->assign('custom', $this->template_dir);
+        }
         $this->assign('defaultSupportPhone', '8 800 707-67-19');
-        return parent::fetch( $name, $cache_id, $compile_id, $display );
+        return parent::fetch( $template, $cache_id, $compile_id);
+
     }
 
-    public function assign($tpl_var, $value = null){
+    public function assign($tpl_var, $value = null, $nocache = false, $scope = null){
         $this->params[$tpl_var] = $value;
         parent::assign($tpl_var, $value);
     }

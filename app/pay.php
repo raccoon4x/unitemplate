@@ -19,7 +19,7 @@ class pay {
     private $templateDir;
 
     public function __construct($template) {
-        $this->templateDir = "/custom/".$template;
+        $this->templateDir = dirname(__FILE__)."/../custom/".$template;
         $this->tpl = new tpl($this->templateDir);
         url::registerInTemplateEngine($this->tpl);
     }

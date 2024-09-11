@@ -1,8 +1,7 @@
 <?php 
 ini_set('display_errors', 1);
-ini_set('error_reporting', E_ALL );
+ini_set('error_reporting', E_ERROR );
 date_default_timezone_set('Europe/Moscow');
-
 
 $app = require_once __DIR__.'/app.php';
 

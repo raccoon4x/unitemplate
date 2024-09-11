@@ -2,6 +2,7 @@
 
 namespace app\lib\sm;
 
+use \Smarty\Smarty;
 /**
  * Утилитный класс для формирования URL: добавление, удаление, изменения параметров.
  */
@@ -51,14 +52,16 @@ class url {
      * @access public
      * @static
      */
-    static public function registerInTemplateEngine(\Smarty $templateEngine)
+    static public function registerInTemplateEngine(Smarty $templateEngine)
     {
-        $templateEngine->register_block("url", array ("app\lib\sm\url", "_smartyUrl"));
-        $templateEngine->register_function("paramsToHiddenInputs", array ("app\lib\sm\url", "_smartyParamsToHiddenInputs"));
-        $templateEngine->register_function("cutParameters", array ("app\lib\sm\url", "_smartyCutParameters"));
-        $templateEngine->register_block("jsLoader", array ("app\lib\sm\url", "_smartyJsLoader"));
-        $templateEngine->register_function("uid", array ("app\lib\sm\url", "_smartyUid"));
-        $templateEngine->register_modifier("url_to_html_link", array ("app\lib\sm\url", "urlsToHtmlLinks"));
+        $templateEngine->registerPlugin("block","url", array ("app\lib\sm\url", "_smartyUrl"));
+        $templateEngine->registerPlugin("function","paramsToHiddenInputs", array ("app\lib\sm\url", "_smartyParamsToHiddenInputs"));
+        $templateEngine->registerPlugin("function","cutParameters", array ("app\lib\sm\url", "_smartyCutParameters"));
+        $templateEngine->registerPlugin("block","jsLoader", array ("app\lib\sm\url", "_smartyJsLoader"));
+        $templateEngine->registerPlugin("function","uid", array ("app\lib\sm\url", "_smartyUid"));
+        $templateEngine->registerPlugin("modifier","is_numeric", array ("app\lib\sm\url", "_is_numeric"));
+        //$templateEngine->registerPlugin("modifier","url_to_html_link", array ("app\lib\sm\url", "urlsToHtmlLinks"));
+        $templateEngine->registerPlugin("modifier","rand", array ("app\lib\sm\url", "_rand"));
     }
 
     /**
@@ -344,6 +347,24 @@ class url {
 
         return sm_url::uid($params['name']);
     }
+    
+    
+    /**
+     * Реализация функции Smarty.
+     *
+     * @access public
+     * @static
+     */
+    static public function _rand($from, $to)
+    {
+        return rand($from, $to);
+    }    
+    
+    static public function _is_numeric($params)
+    {
+        return is_numeric($params);
+    }    
+
 
     /**
      * @var string
