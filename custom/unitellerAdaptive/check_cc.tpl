@@ -1,11 +1,5 @@
 {%capture name="title"%}Страница оплаты{%/capture%}
 {%assign var="order_date_param" value=$aOrder.made_at%}
-{%php%}
-setlocale(LC_TIME, 'ru_RU.UTF-8');
-$time = strtotime($this->get_template_vars('order_date_param'));
-$order_date = strftime("%Y-%m-%d %H:%M:%S", $time);
-$this->assign('order_date', $order_date);
-{%/php%}
 {%capture name="body"%}
 {%include file="includes/header.tpl"%}
 <div class="content">

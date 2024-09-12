@@ -2,6 +2,7 @@
 
 namespace app\lib\sm;
 
+use Smarty\Exception;
 use \Smarty\Smarty;
 /**
  * Утилитный класс для формирования URL: добавление, удаление, изменения параметров.
@@ -16,7 +17,7 @@ class url {
      * <li>smarty tag {curParameters url=$url} - cut GET parameters off the URL</li>
      * <li>smarty tag {uid name="name"} - generate unique id for the name and return it every time the tag with the name is used</li>
      * <li>блочная функция {jsLoader} - {jsLoader url=$conf.jsUrl separate=$conf.debugMode version=$resourcesVersion}dummy1.js,dummy2.js{/jsLoader}</li>
-     * <li>smarty модификатор url_to_html_link - заменяте в тексте урлы на ссылки на них, используя тег A.</li>
+     * <li>smarty модификатор url_to_html_link - заменяет в тексте урлы на ссылки на них, используя тег A.</li>
      * <li></li>
      * </ul>
      *
@@ -45,14 +46,15 @@ class url {
      * В URL добавляет GET-параметры. Причём, если в URL уже такие параметры есть, то перезаписывает указанными значениями.
      * <ul>
      * <li>paramsString - необязательный. Строка с уже сформированными для вставки в URL GET-параметрами.</li>
-     * <li>Все остальные параметры - считаеются GET-параметрами и добавляются в URL (перезаписываясь поверх существующих, если таковые имеются).</li>
+     * <li>Все остальные параметры - считаются GET-параметрами и добавляются в URL (перезаписываясь поверх существующих, если таковые имеются).</li>
      * </ul>
      *
      * @param Smarty $templateEngine
      * @access public
      * @static
+     * @throws Exception
      */
-    static public function registerInTemplateEngine(Smarty $templateEngine)
+    static public function registerInTemplateEngine(Smarty $templateEngine): void
     {
         $templateEngine->registerPlugin("block","url", array ("app\lib\sm\url", "_smartyUrl"));
         $templateEngine->registerPlugin("function","paramsToHiddenInputs", array ("app\lib\sm\url", "_smartyParamsToHiddenInputs"));
@@ -67,15 +69,17 @@ class url {
     /**
      * В URL добавляет GET-параметры добавляя\перезаписывая их к уже там присутствующим.
      *
-     * @param mixed string - если указан только этот параметр, то он заменяет собой следующий
+     * @param mixed $url string - если указан только этот параметр, то он заменяет собой следующий
      *              array - $aParams array (paramName => paramValue): Все остальные параметры - считаеются GET-параметрами и добавляются в URL (перезаписываясь поверх существующих, если таковые имеются)
+     * @param array $aParams
      * @param string $paramsString необязательный. Строка с уже сформированными для вставки в URL GET-параметрами
-     * @param string[] массив имён параметров, которые нужно удалить из URL
+     * @param mixed $aRemoveParams
      * @return string результирующий URL
      * @access public
      * @static
      */
-    static public function format($url, $aParams = array (), $paramsString = "", $aRemoveParams = array ()) {
+    static public function format(mixed $url, array $aParams = [], string $paramsString = "", mixed $aRemoveParams = []): string
+    {
         $url = urldecode($url);
 
         if (empty($aParams) && $paramsString == "" && empty($aRemoveParams)) {
@@ -83,7 +87,7 @@ class url {
         }
 
         $fragment = '';
-        if (strpos($url, '#') !== false) {
+        if (str_contains($url, '#')) {
             $fragment = substr($url, strpos($url, '#'));
             $url = substr($url, 0, strpos($url, '#'));
         }

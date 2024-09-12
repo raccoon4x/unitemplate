@@ -2,6 +2,8 @@
 
 namespace app;
 
+
+use Smarty\Exception;
 use \Smarty\Smarty;
 
 class tpl extends Smarty {
@@ -15,6 +17,9 @@ class tpl extends Smarty {
      *
      * @noinspection PhpMissingParentConstructorInspection
      */
+    /**
+     * @throws Exception
+     */
     public function __construct($dir = '') {
         parent::__construct($dir);
         $smarty_dir = BASE_PATH.DS . 'vendor'.DS.'smarty'.DS.'smarty';
@@ -24,10 +29,13 @@ class tpl extends Smarty {
         $this->compile_dir  = BASE_PATH.DS.'app'.DS.'lib'.DS.'tpl'.DS.'tpl_compiled';
         $this->config_dir   = BASE_PATH.DS.'app'.DS.'lib'.DS.'tpl';
         $this->cache_dir    = BASE_PATH.DS.'app'.DS.'lib'.DS.'tpl'.DS.'cache';
-        $this->plugins_dir = array(
-            $smarty_dir .DS.'libs'.DS.'plugins',
-            BASE_PATH.DS.'app'.DS.'lib'.DS.'tpl'.DS.'plugins'
-        );
+//        $this->plugins_dir = array(
+//            $smarty_dir .DS.'libs'.DS.'plugins',
+//            BASE_PATH.DS.'app'.DS.'lib'.DS.'tpl'.DS.'plugins'
+//        );
+        //$this->addPluginsDir([$smarty_dir .DS.'libs'.DS.'plugins', BASE_PATH.DS.'app'.DS.'lib'.DS.'tpl'.DS.'plugins']);
+        //Smarty::registerPlugin([$smarty_dir .DS.'libs'.DS.'plugins', BASE_PATH.DS.'app'.DS.'lib'.DS.'tpl'.DS.'plugins']);
+        //$this->registerPlugin('function','change_in_array', ['ChangeInArrayPlugins','smarty_function_change_in_array']);
         $this->registerPlugin("block","ic",array($this,'smartyIcb'));
 
         $this->setLeftDelimiter("{%");
@@ -77,5 +85,4 @@ class tpl extends Smarty {
     {
        return $content;
     }
-   
 }
