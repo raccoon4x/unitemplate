@@ -2,8 +2,11 @@
 
 namespace app;
 
+use app\lib\tpl\plugins\SmartyChangeInArrayPlugins;
+use app\lib\tpl\plugins\SmartyNumberFormat;
 use app\tpl;
 use app\lib\sm\url;
+use Smarty\Exception;
 
 
 class pay {
@@ -18,10 +21,15 @@ class pay {
      */
     private $templateDir;
 
+    /**
+     * @throws Exception
+     */
     public function __construct($template) {
-        $this->templateDir = "/custom/".$template;
+        $this->templateDir = dirname(__FILE__)."/../custom/".$template;
         $this->tpl = new tpl($this->templateDir);
         url::registerInTemplateEngine($this->tpl);
+        SmartyChangeInArrayPlugins::registerInTemplateEngine($this->tpl);
+        SmartyNumberFormat::registerInTemplateEngine($this->tpl);
     }
     
     public function acp_index($upoint){
@@ -131,11 +139,16 @@ class pay {
     }
     
     public function acp_check($upoint){
+        setlocale(LC_TIME, 'ru_RU.UTF-8');
+        $order = $this->getOrder();
+        $time = strtotime($order["made_at"]);
+        $order_date = Date("Y-m-d H:i:s", $time);
+        $this->tpl->assign('order_date', $order_date);
         $this->tpl->assign('CardholderName', 'NO NAME');
         $this->tpl->assign('context',$this->getContext());
         $this->tpl->assign('contextSerialized','1234567890');
         $this->tpl->assign('aShop',$this->getShop());
-        $this->tpl->assign('aOrder',$this->getOrder());
+        $this->tpl->assign('aOrder',$order);
         $this->tpl->assign('conf',array('currentUrl' => ''));
         return $this->tpl->fetch('check_cc.tpl', null, null, false);
 

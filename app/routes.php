@@ -4,7 +4,7 @@ namespace app;
 
 use Silex\Application;
 use Silex\Route;
-use Silex\ControllerProviderInterface;
+use Silex\Api\ControllerProviderInterface;
 use Silex\ControllerCollection;
 use app\pay;
 use app\main\main;

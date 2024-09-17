@@ -1,8 +1,4 @@
-{% assign var="file" value=$smarty.template %}
-{% php %}
-    $file = $this->get_template_vars('file');
-    $this->assign('template_dir', dirname($file));
-{% /php %}
+{%assign var="file" value=$smarty.template %}
 
 {% capture name="title" %}
     Шаблоны

@@ -16,17 +16,17 @@ class main {
                 '?error=true' => 'Pay with error',
             )
         ),
-        array('path' => '/pay/do/', 'template' => 'pay_do.tpl'), 
+        array('path' => '/pay/do/', 'template' => 'pay_do.tpl', 'cases' => []),
         array('path' => '/pay/error/', 'template' => 'pay_error.tpl', 'cases' => array('?error=3ds' => '3DS error')),
-        array('path' => '/pay/check/', 'template' => 'check_cc.tpl'),
-        array('path' => '/pay/check_error/', 'template' => 'check_error.tpl'), 
-        array('path' => '/pay/fee/', 'template' => 'pay_fee.tpl'), 
-        array('path' => '/pay/one/', 'template' => 'pay_one_cc.tpl'),
-        array('path' => '/pay/simple/', 'template' => 'pay_simple_cc.tpl'),
-        array('path' => '/pay/info/', 'template' => 'info_cc.tpl'),
+        array('path' => '/pay/check/', 'template' => 'check_cc.tpl', 'cases' => []),
+        array('path' => '/pay/check_error/', 'template' => 'check_error.tpl', 'cases' => []),
+        array('path' => '/pay/fee/', 'template' => 'pay_fee.tpl', 'cases' => []),
+        array('path' => '/pay/one/', 'template' => 'pay_one_cc.tpl', 'cases' => []),
+        array('path' => '/pay/simple/', 'template' => 'pay_simple_cc.tpl', 'cases' => []),
+        array('path' => '/pay/info/', 'template' => 'info_cc.tpl', 'cases' => []),
         
-        array('path' => '/pay/spasibo/', 'template' => 'pay_spasibo.tpl'),
-        array('path' => '/pay/spasiboerr/', 'template' => 'pay_spasibo_err.tpl'),
+        array('path' => '/pay/spasibo/', 'template' => 'pay_spasibo.tpl', 'cases' => []),
+        array('path' => '/pay/spasiboerr/', 'template' => 'pay_spasibo_err.tpl', 'cases' => []),
     );
     
     function __construct() {

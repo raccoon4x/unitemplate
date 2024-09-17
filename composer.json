@@ -6,13 +6,13 @@
     },
 	
     "require": {
-       "smarty/smarty": "2.6.28",
-	   "silex/silex": "~1.2",
+       "smarty/smarty": "*",
+	   "silex/silex": "*",
        "pclzip/pclzip": "2.*"
     },
     
     "require-dev": {
-       "phpunit/phpunit": "4.5.*",
+       "phpunit/phpunit": "*",
        "symfony/browser-kit" : "*",
        "symfony/css-selector" : "*",
 	   "codeception/codeception": "*"
