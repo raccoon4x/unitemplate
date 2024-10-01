@@ -49,7 +49,7 @@
  C:\xampp\php\php.exe composer.phar install --no-dev
  ```
  
- 3. Запустить сервер приложения (начиная с php5.4 можно запускать встроенный сервер php)
+ 3. Запустить сервер приложения
  ```sh
  C:\xampp\php\php.exe -S localhost:8008
  ```
